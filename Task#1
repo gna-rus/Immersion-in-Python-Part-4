@@ -1,0 +1,39 @@
+# 1. Напишите функцию для транспонирования матрицы
+
+from random import randint
+
+def transposition_matrices(matrix):
+    """
+    Функция для транспонирования матрицы
+    """
+    result = []
+    for i in range(len(matrix[0])):
+        timer_list = []
+        for j in range(len(matrix)):
+            timer_list.append(matrix[j][i]) # Меняю местами элементы
+        result.append(timer_list)
+    return result
+
+def drow_mareices(text, matrix):
+    """
+    Функция для рисования матрицы
+    """
+    print(text)
+    for i in matrix:
+        print(f"{' '.join(f'{value:3}' for value in i)}")  # Выравниваю матрицу
+    print()
+
+
+
+# Генерирую матрицу
+rows = 3
+columns = 5
+matrix = [[randint(0,20) for i in range(columns)] for j in range(rows)]
+
+
+drow_mareices("Первичный вид матрицы", matrix)
+matrix = transposition_matrices(matrix)
+drow_mareices("Матрица после транспонирования", matrix)
+
+
+
