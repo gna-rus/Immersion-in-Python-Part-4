@@ -1,0 +1,30 @@
+# Напишите функцию принимающую на вход только ключевые параметры и возвращающую словарь,
+# где ключ — значение переданного аргумента, а значение — имя аргумента.
+# Если ключ не хешируем, используйте его строковое представление.
+
+def is_hashable(obj):
+    """Проверка на хэширование"""
+    try:
+        hash(obj)
+        return True
+    except TypeError:
+        return False
+
+
+def create_dict(**kwargs):
+    """Функция для замены местами <ключ>-<значение>"""
+    result_dict = dict()
+    for i in kwargs:
+        if is_hashable(kwargs[i]):
+            result_dict[kwargs[i]] = i
+        else:
+            result_dict[str(kwargs[i])] = i
+    return result_dict
+
+# Передаю в функцию ключевые параметры со значениями
+my_dict = create_dict(key1="value1", key2="value2", key3={12,222}, key4 = [1,2,3])
+print(my_dict)
+
+
+
+
