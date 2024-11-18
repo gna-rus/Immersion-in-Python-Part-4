@@ -19,12 +19,14 @@ def add_money(sum_of_money, count):
     """Пополнение счета"""
     sum_of_money += 50
     count += 1
+
     if count == 3:
         sum_of_money *= 1.03
         count = 0
 
     if sum_of_money >= 5_000_000:
         sum_of_money = wealth_tax(sum_of_money)
+
 
     print(f"Баланс счета: {sum_of_money}")
     return  sum_of_money, count
@@ -38,8 +40,10 @@ def del_money(sum_of_money, count):
         sum_of_money *= 1.03
         count = 0
 
+    # Расчет размерности вычета за проведение операции
     tax = sum_of_money*0.015
 
+    # проверка размерность вычета за проведение операции
     if tax < 30:
         tax = 30
     elif tax > 600:
@@ -47,27 +51,35 @@ def del_money(sum_of_money, count):
 
     sum_of_money -= tax
 
+    # Проверка на богатство и начисление соответственного налога
     if sum_of_money >= 5_000_000:
         sum_of_money = wealth_tax(sum_of_money)
+
+    # Проверка что на счете есть деньги и счет не уходил ниже 0
+    if sum_of_money < 0:
+        sum_of_money = 0
 
     print(f"Баланс счета: {sum_of_money}")
     return sum_of_money, count
 
-
-sum_of_money = 4_000_000
+# Создаю начальные условия размерности счета и количества проведенных операций
+sum_of_money = 0
 count = 0
 
 print(f"Меню: \n1-пополнить счет \n2-снять деньги со счета \n3-Выйти")
 
 
 while True:
-    n = int(input())
-    if n == 1:
-        sum_of_money, count = add_money(sum_of_money, count)
-    elif n == 2:
-        sum_of_money, count = del_money(sum_of_money, count)
-    elif n == 3:
-        break
-    else:
+    try:
+        n = input()
+        if int(n) == 1:
+            sum_of_money, count = add_money(sum_of_money, count)
+        elif int(n) == 2:
+            sum_of_money, count = del_money(sum_of_money, count)
+        elif int(n) == 3:
+            break
+        else:
+            print("Не корректный ввод")
+    except ValueError:        
         print("Не корректный ввод")
 
