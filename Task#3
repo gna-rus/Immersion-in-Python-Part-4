@@ -10,14 +10,49 @@
 #
 #  Возьмите задачу о банкомате из семинара 2. Разбейте её на отдельные операции — функции. Дополнительно сохраняйте все операции поступления и снятия средств в список.
 
+def wealth_tax(sum_of_money):
+    sum_of_money *= 0.9
+    return sum_of_money
 
-def add_money(sum_of_money):
-    pass
+def add_money(sum_of_money, count):
+    sum_of_money += 50
+    count += 1
+    if count == 3:
+        sum_of_money *= 1.03
+        count = 0
 
-def del_money(sum_of_money):
-    pass
+    if sum_of_money >= 5_000_000:
+        sum_of_money = wealth_tax(sum_of_money)
 
-sum_of_money = 0
+    print(f"Баланс счета: {sum_of_money}")
+    return  sum_of_money, count
+
+def del_money(sum_of_money, count):
+    sum_of_money -= 50
+    count += 1
+
+    if count == 3:
+        sum_of_money *= 1.03
+        count = 0
+
+    tax = sum_of_money*0.015
+
+    if tax < 30:
+        tax = 30
+    elif tax > 600:
+        tax = 600
+
+    sum_of_money -= tax
+
+    if sum_of_money >= 5_000_000:
+        sum_of_money = wealth_tax(sum_of_money)
+
+    print(f"Баланс счета: {sum_of_money}")
+    return sum_of_money, count
+
+
+sum_of_money = 4_000_000
+count = 0
 
 print(f"Меню: \n1-пополнить счет \n2-снять деньги со счета \n3-Выйти")
 
@@ -25,9 +60,9 @@ print(f"Меню: \n1-пополнить счет \n2-снять деньги с
 while True:
     n = int(input())
     if n == 1:
-        sum_of_money = add_money(sum_of_money)
+        sum_of_money, count = add_money(sum_of_money, count)
     elif n == 2:
-        sum_of_money = del_money(sum_of_money)
+        sum_of_money, count = del_money(sum_of_money, count)
     elif n == 3:
         break
     else:
