@@ -11,10 +11,12 @@
 #  Возьмите задачу о банкомате из семинара 2. Разбейте её на отдельные операции — функции. Дополнительно сохраняйте все операции поступления и снятия средств в список.
 
 def wealth_tax(sum_of_money):
+    """Вычитание налога на богатство"""
     sum_of_money *= 0.9
     return sum_of_money
 
 def add_money(sum_of_money, count):
+    """Пополнение счета"""
     sum_of_money += 50
     count += 1
     if count == 3:
@@ -28,6 +30,7 @@ def add_money(sum_of_money, count):
     return  sum_of_money, count
 
 def del_money(sum_of_money, count):
+    """Снятие денег со счета"""
     sum_of_money -= 50
     count += 1
 
